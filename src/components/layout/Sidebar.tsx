@@ -10,7 +10,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Zap,
-  Activity
+  Activity,
+  Eye
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -30,6 +31,7 @@ interface SidebarProps {
 
 const navItems: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
+  { id: 'observability', label: 'Observability', icon: <Eye className="w-5 h-5" />, badge: 'LIVE', badgeVariant: 'success' },
   { id: 'insights-tower', label: 'AI InsightsTower', icon: <Brain className="w-5 h-5" />, badge: 'META', badgeVariant: 'insights' },
   { id: 'evaluation', label: 'Evaluation Metrics', icon: <BarChart3 className="w-5 h-5" /> },
   { id: 'prompts', label: 'Prompt Studio', icon: <MessageSquare className="w-5 h-5" />, badge: '12', badgeVariant: 'default' },
