@@ -7,6 +7,7 @@ import { ObservabilitySection } from '@/components/sections/ObservabilitySection
 import { PromptStudio } from '@/components/prompts/PromptStudio';
 import { GovernancePanel } from '@/components/governance/GovernancePanel';
 import { MCPIntegrations } from '@/components/integrations/MCPIntegrations';
+import { AzureIntegration } from '@/components/integrations/AzureIntegration';
 import { InsightsTower } from '@/components/dashboard/InsightsTower';
 
 const sectionConfig: Record<string, { title: string; subtitle: string }> = {
@@ -16,6 +17,7 @@ const sectionConfig: Record<string, { title: string; subtitle: string }> = {
   'evaluation': { title: 'Evaluation Metrics', subtitle: 'Multi-layer performance analysis' },
   'prompts': { title: 'Prompt Studio', subtitle: 'Manage and test agent prompts' },
   'governance': { title: 'Agent Governance', subtitle: 'Policies, guardrails, and audit' },
+  'azure': { title: 'Azure Integration', subtitle: 'AKS clusters, observability pipeline, and remote evaluation' },
   'integrations': { title: 'MCP Integrations', subtitle: 'IT Service Management connections' },
 };
 
@@ -41,6 +43,8 @@ const Index = () => {
         return <PromptStudio />;
       case 'governance':
         return <GovernancePanel />;
+      case 'azure':
+        return <AzureIntegration />;
       case 'integrations':
         return <MCPIntegrations />;
       default:
