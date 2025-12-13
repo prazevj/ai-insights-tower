@@ -36,6 +36,7 @@ const navItems: NavItem[] = [
   { id: 'evaluation', label: 'Evaluation Metrics', icon: <BarChart3 className="w-5 h-5" /> },
   { id: 'prompts', label: 'Prompt Studio', icon: <MessageSquare className="w-5 h-5" />, badge: '12', badgeVariant: 'default' },
   { id: 'governance', label: 'Agent Governance', icon: <Shield className="w-5 h-5" /> },
+  { id: 'azure', label: 'Azure Integration', icon: <Zap className="w-5 h-5" />, badge: 'NEW', badgeVariant: 'insights' },
   { id: 'integrations', label: 'MCP Integrations', icon: <Plug className="w-5 h-5" />, badge: '3', badgeVariant: 'success' },
 ];
 
