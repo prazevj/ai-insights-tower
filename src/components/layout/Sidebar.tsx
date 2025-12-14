@@ -11,10 +11,12 @@ import {
   ChevronRight,
   Zap,
   Activity,
-  Eye
+  Eye,
+  Cloud
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { usePageVisibility } from '@/contexts/PageVisibilityContext';
 
 interface NavItem {
   id: string;
@@ -37,11 +39,15 @@ const navItems: NavItem[] = [
   { id: 'prompts', label: 'Prompt Studio', icon: <MessageSquare className="w-5 h-5" />, badge: '12', badgeVariant: 'default' },
   { id: 'governance', label: 'Agent Governance', icon: <Shield className="w-5 h-5" /> },
   { id: 'azure', label: 'Azure Integration', icon: <Zap className="w-5 h-5" />, badge: 'NEW', badgeVariant: 'insights' },
+  { id: 'multi-cloud', label: 'Multi-Cloud', icon: <Cloud className="w-5 h-5" />, badge: 'NEW', badgeVariant: 'insights' },
   { id: 'integrations', label: 'MCP Integrations', icon: <Plug className="w-5 h-5" />, badge: '3', badgeVariant: 'success' },
 ];
 
 export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const { visibility } = usePageVisibility();
+
+  const visibleNavItems = navItems.filter(item => visibility[item.id as keyof typeof visibility]);
 
   return (
     <aside 
@@ -75,7 +81,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto scrollbar-thin">
-        {navItems.map((item) => (
+        {visibleNavItems.map((item) => (
           <button
             key={item.id}
             onClick={() => onSectionChange(item.id)}
@@ -117,10 +123,14 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
 
       {/* Settings */}
       <div className="p-3 border-t border-sidebar-border">
-        <button className={cn(
-          "nav-item w-full",
-          collapsed && "justify-center"
-        )}>
+        <button 
+          onClick={() => onSectionChange('settings')}
+          className={cn(
+            "nav-item w-full",
+            activeSection === 'settings' && "nav-item-active",
+            collapsed && "justify-center"
+          )}
+        >
           <Settings className="w-5 h-5" />
           {!collapsed && <span>Settings</span>}
         </button>

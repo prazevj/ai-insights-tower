@@ -8,7 +8,10 @@ import { PromptStudio } from '@/components/prompts/PromptStudio';
 import { GovernancePanel } from '@/components/governance/GovernancePanel';
 import { MCPIntegrations } from '@/components/integrations/MCPIntegrations';
 import { AzureIntegration } from '@/components/integrations/AzureIntegration';
+import { MultiCloudDashboard } from '@/components/integrations/MultiCloudDashboard';
 import { InsightsTower } from '@/components/dashboard/InsightsTower';
+import { SettingsPanel } from '@/components/settings/SettingsPanel';
+import { PageVisibilityProvider } from '@/contexts/PageVisibilityContext';
 
 const sectionConfig: Record<string, { title: string; subtitle: string }> = {
   'dashboard': { title: 'Dashboard', subtitle: 'Real-time observability overview' },
@@ -18,12 +21,14 @@ const sectionConfig: Record<string, { title: string; subtitle: string }> = {
   'prompts': { title: 'Prompt Studio', subtitle: 'Manage and test agent prompts' },
   'governance': { title: 'Agent Governance', subtitle: 'Policies, guardrails, and audit' },
   'azure': { title: 'Azure Integration', subtitle: 'AKS clusters, observability pipeline, and remote evaluation' },
+  'multi-cloud': { title: 'Multi-Cloud Dashboard', subtitle: 'Unified view across Azure, AWS, and GCP' },
   'integrations': { title: 'MCP Integrations', subtitle: 'IT Service Management connections' },
+  'settings': { title: 'Settings', subtitle: 'Configure navigation and preferences' },
 };
 
-const Index = () => {
+const IndexContent = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
-  const config = sectionConfig[activeSection];
+  const config = sectionConfig[activeSection] || sectionConfig['dashboard'];
 
   const renderSection = () => {
     switch (activeSection) {
@@ -45,8 +50,12 @@ const Index = () => {
         return <GovernancePanel />;
       case 'azure':
         return <AzureIntegration />;
+      case 'multi-cloud':
+        return <MultiCloudDashboard />;
       case 'integrations':
         return <MCPIntegrations />;
+      case 'settings':
+        return <SettingsPanel />;
       default:
         return <DashboardSection />;
     }
@@ -66,6 +75,14 @@ const Index = () => {
         </div>
       </main>
     </div>
+  );
+};
+
+const Index = () => {
+  return (
+    <PageVisibilityProvider>
+      <IndexContent />
+    </PageVisibilityProvider>
   );
 };
 
