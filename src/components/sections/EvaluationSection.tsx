@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BarChart3, Layers, Bot, Wrench, GitBranch, Target, TrendingUp, Clock, AlertTriangle, CheckCircle, XCircle, Info, ChevronDown, ChevronUp, Play, Download, Filter } from 'lucide-react';
+import { BarChart3, Layers, Bot, Wrench, GitBranch, Target, TrendingUp, Clock, AlertTriangle, CheckCircle, XCircle, Info, ChevronDown, ChevronUp, Play, Download, Filter, Eye, Activity, Zap, History, ArrowRight, ExternalLink, RefreshCw, Timer, Hash, FileText } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -133,6 +133,328 @@ const e2eMetrics = {
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
 
+// Detailed execution data
+const executionHistory = [
+  {
+    id: 'EXEC-001',
+    workflowId: 'WF-TRIAGE-001',
+    workflowName: 'Incident Triage Flow',
+    agentId: 'AGT-CLASSIFIER-01',
+    agentName: 'ClassifierAgent',
+    timestamp: '2024-12-15 14:32:15',
+    status: 'completed',
+    duration: '4.2s',
+    inputTokens: 1250,
+    outputTokens: 380,
+    cost: 0.0125,
+    score: 94.5,
+    steps: [
+      { name: 'Intent Recognition', duration: '120ms', status: 'success', score: 97 },
+      { name: 'Context Retrieval', duration: '85ms', status: 'success', score: 95 },
+      { name: 'Classification', duration: '210ms', status: 'success', score: 96 },
+      { name: 'Priority Assignment', duration: '65ms', status: 'success', score: 92 },
+    ],
+    toolCalls: [
+      { tool: 'fetchKnowledge', duration: '180ms', success: true },
+      { tool: 'classifyIntent', duration: '95ms', success: true },
+    ],
+  },
+  {
+    id: 'EXEC-002',
+    workflowId: 'WF-ESCALATE-001',
+    workflowName: 'P1 Escalation Flow',
+    agentId: 'AGT-ESCALATION-01',
+    agentName: 'EscalationAgent',
+    timestamp: '2024-12-15 14:28:42',
+    status: 'completed',
+    duration: '8.5s',
+    inputTokens: 2100,
+    outputTokens: 520,
+    cost: 0.0215,
+    score: 88.2,
+    steps: [
+      { name: 'Severity Analysis', duration: '280ms', status: 'success', score: 92 },
+      { name: 'Impact Assessment', duration: '450ms', status: 'success', score: 88 },
+      { name: 'Escalation Decision', duration: '180ms', status: 'success', score: 85 },
+      { name: 'Notification Dispatch', duration: '120ms', status: 'success', score: 91 },
+    ],
+    toolCalls: [
+      { tool: 'fetchIncidentHistory', duration: '320ms', success: true },
+      { tool: 'checkSLAStatus', duration: '85ms', success: true },
+      { tool: 'sendNotification', duration: '95ms', success: true },
+    ],
+  },
+  {
+    id: 'EXEC-003',
+    workflowId: 'WF-RESOLVE-001',
+    workflowName: 'Auto-Resolution Flow',
+    agentId: 'AGT-RESOLVER-01',
+    agentName: 'ResolutionAgent',
+    timestamp: '2024-12-15 14:25:18',
+    status: 'failed',
+    duration: '12.1s',
+    inputTokens: 3200,
+    outputTokens: 890,
+    cost: 0.0342,
+    score: 45.2,
+    steps: [
+      { name: 'Solution Lookup', duration: '520ms', status: 'success', score: 88 },
+      { name: 'Action Planning', duration: '680ms', status: 'success', score: 82 },
+      { name: 'Execution', duration: '8.2s', status: 'failed', score: 32 },
+      { name: 'Validation', duration: '—', status: 'skipped', score: 0 },
+    ],
+    toolCalls: [
+      { tool: 'fetchKnowledge', duration: '280ms', success: true },
+      { tool: 'executeRunbook', duration: '7.8s', success: false },
+    ],
+    error: 'Runbook execution timed out: Connection to target system failed after 3 retries',
+  },
+  {
+    id: 'EXEC-004',
+    workflowId: 'WF-TRIAGE-001',
+    workflowName: 'Incident Triage Flow',
+    agentId: 'AGT-CLASSIFIER-01',
+    agentName: 'ClassifierAgent',
+    timestamp: '2024-12-15 14:20:05',
+    status: 'completed',
+    duration: '3.8s',
+    inputTokens: 980,
+    outputTokens: 290,
+    cost: 0.0098,
+    score: 96.8,
+    steps: [
+      { name: 'Intent Recognition', duration: '95ms', status: 'success', score: 99 },
+      { name: 'Context Retrieval', duration: '78ms', status: 'success', score: 97 },
+      { name: 'Classification', duration: '185ms', status: 'success', score: 95 },
+      { name: 'Priority Assignment', duration: '52ms', status: 'success', score: 96 },
+    ],
+    toolCalls: [
+      { tool: 'fetchKnowledge', duration: '145ms', success: true },
+      { tool: 'classifyIntent', duration: '88ms', success: true },
+    ],
+  },
+  {
+    id: 'EXEC-005',
+    workflowId: 'WF-KNOWLEDGE-001',
+    workflowName: 'Knowledge Update Flow',
+    agentId: 'AGT-KNOWLEDGE-01',
+    agentName: 'KnowledgeAgent',
+    timestamp: '2024-12-15 14:15:30',
+    status: 'completed',
+    duration: '3.2s',
+    inputTokens: 1450,
+    outputTokens: 680,
+    cost: 0.0158,
+    score: 92.1,
+    steps: [
+      { name: 'Content Extraction', duration: '380ms', status: 'success', score: 94 },
+      { name: 'Deduplication', duration: '220ms', status: 'success', score: 91 },
+      { name: 'Indexing', duration: '185ms', status: 'success', score: 93 },
+      { name: 'Validation', duration: '95ms', status: 'success', score: 90 },
+    ],
+    toolCalls: [
+      { tool: 'extractContent', duration: '280ms', success: true },
+      { tool: 'updateIndex', duration: '150ms', success: true },
+    ],
+  },
+];
+
+// Workflow-specific metrics
+const workflowExecutionMetrics = [
+  {
+    id: 'WF-TRIAGE-001',
+    name: 'Incident Triage Flow',
+    description: 'Classifies and prioritizes incoming incidents',
+    totalExecutions: 2450,
+    successRate: 92.4,
+    avgDuration: '4.2s',
+    avgScore: 94.2,
+    avgTokens: 1150,
+    avgCost: 0.0112,
+    agents: ['ClassifierAgent', 'PrioritizerAgent'],
+    lastExecution: '2024-12-15 14:32:15',
+    trend: [85, 88, 90, 92, 94, 92],
+    stepBreakdown: [
+      { step: 'Intent Recognition', avgDuration: '115ms', successRate: 97.2 },
+      { step: 'Context Retrieval', avgDuration: '82ms', successRate: 95.8 },
+      { step: 'Classification', avgDuration: '195ms', successRate: 94.5 },
+      { step: 'Priority Assignment', avgDuration: '58ms', successRate: 96.1 },
+    ],
+  },
+  {
+    id: 'WF-ESCALATE-001',
+    name: 'P1 Escalation Flow',
+    description: 'Handles critical incident escalation and notifications',
+    totalExecutions: 180,
+    successRate: 88.3,
+    avgDuration: '8.5s',
+    avgScore: 87.5,
+    avgTokens: 2250,
+    avgCost: 0.0228,
+    agents: ['EscalationAgent', 'NotificationAgent'],
+    lastExecution: '2024-12-15 14:28:42',
+    trend: [82, 84, 86, 88, 87, 88],
+    stepBreakdown: [
+      { step: 'Severity Analysis', avgDuration: '265ms', successRate: 91.8 },
+      { step: 'Impact Assessment', avgDuration: '420ms', successRate: 88.2 },
+      { step: 'Escalation Decision', avgDuration: '175ms', successRate: 85.5 },
+      { step: 'Notification Dispatch', avgDuration: '115ms', successRate: 94.2 },
+    ],
+  },
+  {
+    id: 'WF-RESOLVE-001',
+    name: 'Auto-Resolution Flow',
+    description: 'Automatically resolves known issues using runbooks',
+    totalExecutions: 1890,
+    successRate: 85.2,
+    avgDuration: '12.1s',
+    avgScore: 82.8,
+    avgTokens: 3100,
+    avgCost: 0.0315,
+    agents: ['ResolutionAgent', 'ExecutorAgent', 'ValidatorAgent'],
+    lastExecution: '2024-12-15 14:25:18',
+    trend: [78, 80, 82, 84, 85, 85],
+    stepBreakdown: [
+      { step: 'Solution Lookup', avgDuration: '480ms', successRate: 92.1 },
+      { step: 'Action Planning', avgDuration: '620ms', successRate: 88.5 },
+      { step: 'Execution', avgDuration: '8.5s', successRate: 82.3 },
+      { step: 'Validation', avgDuration: '380ms', successRate: 95.8 },
+    ],
+  },
+  {
+    id: 'WF-KNOWLEDGE-001',
+    name: 'Knowledge Update Flow',
+    description: 'Updates and maintains the knowledge base',
+    totalExecutions: 560,
+    successRate: 94.8,
+    avgDuration: '3.8s',
+    avgScore: 91.5,
+    avgTokens: 1580,
+    avgCost: 0.0162,
+    agents: ['KnowledgeAgent', 'IndexerAgent'],
+    lastExecution: '2024-12-15 14:15:30',
+    trend: [88, 90, 92, 93, 94, 95],
+    stepBreakdown: [
+      { step: 'Content Extraction', avgDuration: '350ms', successRate: 95.2 },
+      { step: 'Deduplication', avgDuration: '210ms', successRate: 93.8 },
+      { step: 'Indexing', avgDuration: '175ms', successRate: 96.1 },
+      { step: 'Validation', avgDuration: '88ms', successRate: 94.5 },
+    ],
+  },
+];
+
+// Agent-specific metrics
+const agentExecutionMetrics = [
+  {
+    id: 'AGT-CLASSIFIER-01',
+    name: 'ClassifierAgent',
+    type: 'Classification',
+    model: 'GPT-4o',
+    totalExecutions: 4850,
+    successRate: 96.2,
+    avgLatency: '420ms',
+    avgScore: 95.8,
+    avgTokens: { input: 1180, output: 320 },
+    avgCost: 0.0108,
+    workflows: ['Incident Triage Flow', 'P1 Escalation Flow'],
+    capabilities: ['Intent Recognition', 'Category Classification', 'Priority Assignment'],
+    lastExecution: '2024-12-15 14:32:15',
+    performanceTrend: [92, 94, 95, 96, 96, 96],
+    recentExecutions: [
+      { id: 'EXEC-001', timestamp: '14:32:15', duration: '4.2s', score: 94.5, status: 'success' },
+      { id: 'EXEC-004', timestamp: '14:20:05', duration: '3.8s', score: 96.8, status: 'success' },
+      { id: 'EXEC-008', timestamp: '13:58:22', duration: '4.5s', score: 93.2, status: 'success' },
+    ],
+    errorBreakdown: [
+      { type: 'Misclassification', count: 45, percentage: 38 },
+      { type: 'Timeout', count: 28, percentage: 24 },
+      { type: 'Context Overflow', count: 22, percentage: 19 },
+      { type: 'Other', count: 23, percentage: 19 },
+    ],
+  },
+  {
+    id: 'AGT-ESCALATION-01',
+    name: 'EscalationAgent',
+    type: 'Decision Making',
+    model: 'Claude 3.5 Sonnet',
+    totalExecutions: 1250,
+    successRate: 91.5,
+    avgLatency: '680ms',
+    avgScore: 88.2,
+    avgTokens: { input: 2200, output: 480 },
+    avgCost: 0.0195,
+    workflows: ['P1 Escalation Flow', 'Incident Triage Flow'],
+    capabilities: ['Severity Analysis', 'Impact Assessment', 'Escalation Decision'],
+    lastExecution: '2024-12-15 14:28:42',
+    performanceTrend: [86, 88, 89, 90, 91, 92],
+    recentExecutions: [
+      { id: 'EXEC-002', timestamp: '14:28:42', duration: '8.5s', score: 88.2, status: 'success' },
+      { id: 'EXEC-007', timestamp: '14:05:18', duration: '7.8s', score: 91.5, status: 'success' },
+      { id: 'EXEC-012', timestamp: '13:42:55', duration: '9.2s', score: 85.8, status: 'success' },
+    ],
+    errorBreakdown: [
+      { type: 'Wrong Escalation Level', count: 52, percentage: 42 },
+      { type: 'Missed SLA', count: 35, percentage: 28 },
+      { type: 'Notification Failure', count: 22, percentage: 18 },
+      { type: 'Other', count: 15, percentage: 12 },
+    ],
+  },
+  {
+    id: 'AGT-RESOLVER-01',
+    name: 'ResolutionAgent',
+    type: 'Action Execution',
+    model: 'GPT-4o',
+    totalExecutions: 2890,
+    successRate: 85.8,
+    avgLatency: '1.2s',
+    avgScore: 82.5,
+    avgTokens: { input: 3100, output: 850 },
+    avgCost: 0.0285,
+    workflows: ['Auto-Resolution Flow'],
+    capabilities: ['Solution Lookup', 'Runbook Execution', 'Validation'],
+    lastExecution: '2024-12-15 14:25:18',
+    performanceTrend: [80, 82, 83, 84, 85, 86],
+    recentExecutions: [
+      { id: 'EXEC-003', timestamp: '14:25:18', duration: '12.1s', score: 45.2, status: 'failed' },
+      { id: 'EXEC-009', timestamp: '13:52:08', duration: '11.5s', score: 88.5, status: 'success' },
+      { id: 'EXEC-015', timestamp: '13:28:45', duration: '10.8s', score: 91.2, status: 'success' },
+    ],
+    errorBreakdown: [
+      { type: 'Runbook Timeout', count: 182, percentage: 45 },
+      { type: 'Invalid Solution', count: 98, percentage: 24 },
+      { type: 'Execution Error', count: 78, percentage: 19 },
+      { type: 'Other', count: 48, percentage: 12 },
+    ],
+  },
+  {
+    id: 'AGT-KNOWLEDGE-01',
+    name: 'KnowledgeAgent',
+    type: 'Knowledge Management',
+    model: 'Claude 3.5 Sonnet',
+    totalExecutions: 1680,
+    successRate: 94.2,
+    avgLatency: '520ms',
+    avgScore: 92.1,
+    avgTokens: { input: 1450, output: 620 },
+    avgCost: 0.0152,
+    workflows: ['Knowledge Update Flow', 'Incident Triage Flow'],
+    capabilities: ['Content Extraction', 'Deduplication', 'Indexing'],
+    lastExecution: '2024-12-15 14:15:30',
+    performanceTrend: [88, 90, 91, 92, 93, 94],
+    recentExecutions: [
+      { id: 'EXEC-005', timestamp: '14:15:30', duration: '3.2s', score: 92.1, status: 'success' },
+      { id: 'EXEC-011', timestamp: '13:48:12', duration: '3.5s', score: 94.5, status: 'success' },
+      { id: 'EXEC-018', timestamp: '13:15:28', duration: '3.1s', score: 93.8, status: 'success' },
+    ],
+    errorBreakdown: [
+      { type: 'Duplicate Detection Miss', count: 42, percentage: 38 },
+      { type: 'Index Corruption', count: 28, percentage: 25 },
+      { type: 'Validation Failure', count: 25, percentage: 23 },
+      { type: 'Other', count: 15, percentage: 14 },
+    ],
+  },
+];
+
 interface LayerCardProps {
   icon: React.ReactNode;
   title: string;
@@ -209,8 +531,10 @@ export function EvaluationSection() {
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList>
           <TabsTrigger value="layers">Layer Analysis</TabsTrigger>
+          <TabsTrigger value="executions">Executions</TabsTrigger>
+          <TabsTrigger value="workflows">Workflow Metrics</TabsTrigger>
+          <TabsTrigger value="agents">Agent Metrics</TabsTrigger>
           <TabsTrigger value="trends">Trends & Comparison</TabsTrigger>
-          <TabsTrigger value="details">Detailed Metrics</TabsTrigger>
         </TabsList>
 
         <TabsContent value="layers" className="mt-6 space-y-4">
@@ -551,6 +875,379 @@ export function EvaluationSection() {
           </LayerCard>
         </TabsContent>
 
+        {/* Executions Tab */}
+        <TabsContent value="executions" className="mt-6 space-y-6">
+          <div className="glass-panel">
+            <div className="p-4 border-b border-border flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <History className="w-5 h-5 text-primary" />
+                <h3 className="text-lg font-semibold text-foreground">Execution History</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="sm">
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filter
+                </Button>
+                <Button variant="outline" size="sm">
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Refresh
+                </Button>
+              </div>
+            </div>
+            <div className="divide-y divide-border">
+              {executionHistory.map((execution) => (
+                <div key={execution.id} className="p-4 hover:bg-muted/20 transition-colors">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-start gap-4">
+                      <div className={cn(
+                        "w-10 h-10 rounded-lg flex items-center justify-center",
+                        execution.status === 'completed' ? 'bg-success/20' : 'bg-destructive/20'
+                      )}>
+                        {execution.status === 'completed' ? (
+                          <CheckCircle className="w-5 h-5 text-success" />
+                        ) : (
+                          <XCircle className="w-5 h-5 text-destructive" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-mono text-sm text-primary">{execution.id}</span>
+                          <Badge variant={execution.status === 'completed' ? 'success' : 'critical'}>
+                            {execution.status}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <GitBranch className="w-3 h-3" />
+                            {execution.workflowName}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Bot className="w-3 h-3" />
+                            {execution.agentName}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {execution.timestamp}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-right">
+                        <p className="text-xl font-mono font-semibold text-foreground">{execution.score}%</p>
+                        <p className="text-xs text-muted-foreground">Score</p>
+                      </div>
+                      <Button variant="ghost" size="sm">
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  {/* Execution Details */}
+                  <div className="grid grid-cols-4 gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-card">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Timer className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Duration</span>
+                      </div>
+                      <p className="font-mono text-sm text-foreground">{execution.duration}</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-card">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Hash className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Tokens</span>
+                      </div>
+                      <p className="font-mono text-sm text-foreground">{execution.inputTokens} / {execution.outputTokens}</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-card">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Zap className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Cost</span>
+                      </div>
+                      <p className="font-mono text-sm text-foreground">${execution.cost.toFixed(4)}</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-card">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Wrench className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Tool Calls</span>
+                      </div>
+                      <p className="font-mono text-sm text-foreground">{execution.toolCalls.length}</p>
+                    </div>
+                  </div>
+
+                  {/* Steps */}
+                  <div className="mb-3">
+                    <p className="text-xs font-medium text-muted-foreground mb-2">Execution Steps</p>
+                    <div className="flex items-center gap-2">
+                      {execution.steps.map((step, i) => (
+                        <div key={i} className="flex items-center">
+                          <div className={cn(
+                            "px-3 py-1.5 rounded-lg text-xs font-medium",
+                            step.status === 'success' ? 'bg-success/20 text-success' :
+                            step.status === 'failed' ? 'bg-destructive/20 text-destructive' :
+                            'bg-muted text-muted-foreground'
+                          )}>
+                            <div className="flex items-center gap-2">
+                              <span>{step.name}</span>
+                              <span className="font-mono opacity-70">{step.duration}</span>
+                            </div>
+                          </div>
+                          {i < execution.steps.length - 1 && (
+                            <ArrowRight className="w-4 h-4 mx-1 text-muted-foreground" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tool Calls */}
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs font-medium text-muted-foreground">Tools:</p>
+                    {execution.toolCalls.map((tool, i) => (
+                      <Badge key={i} variant={tool.success ? 'muted' : 'critical'} className="font-mono text-xs">
+                        {tool.tool} ({tool.duration})
+                      </Badge>
+                    ))}
+                  </div>
+
+                  {/* Error Message */}
+                  {execution.error && (
+                    <div className="mt-3 p-3 rounded-lg bg-destructive/10 border border-destructive/20">
+                      <div className="flex items-start gap-2">
+                        <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
+                        <p className="text-sm text-destructive">{execution.error}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* Workflow Metrics Tab */}
+        <TabsContent value="workflows" className="mt-6 space-y-6">
+          <div className="grid grid-cols-2 gap-6">
+            {workflowExecutionMetrics.map((workflow) => (
+              <div key={workflow.id} className="glass-panel">
+                <div className="p-4 border-b border-border">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <GitBranch className="w-4 h-4 text-chart-4" />
+                        <h3 className="font-semibold text-foreground">{workflow.name}</h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{workflow.description}</p>
+                    </div>
+                    <Badge variant={workflow.successRate >= 90 ? 'success' : workflow.successRate >= 85 ? 'warning' : 'critical'}>
+                      {workflow.successRate}%
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground font-mono">{workflow.id}</p>
+                </div>
+                <div className="p-4">
+                  <div className="grid grid-cols-3 gap-3 mb-4">
+                    <div className="text-center p-2 rounded-lg bg-muted/30">
+                      <p className="text-lg font-mono font-semibold text-foreground">{workflow.totalExecutions.toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">Executions</p>
+                    </div>
+                    <div className="text-center p-2 rounded-lg bg-muted/30">
+                      <p className="text-lg font-mono font-semibold text-foreground">{workflow.avgDuration}</p>
+                      <p className="text-xs text-muted-foreground">Avg Duration</p>
+                    </div>
+                    <div className="text-center p-2 rounded-lg bg-muted/30">
+                      <p className="text-lg font-mono font-semibold text-success">{workflow.avgScore}%</p>
+                      <p className="text-xs text-muted-foreground">Avg Score</p>
+                    </div>
+                  </div>
+
+                  {/* Mini trend chart */}
+                  <div className="h-16 mb-4">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={workflow.trend.map((v, i) => ({ idx: i, value: v }))}>
+                        <defs>
+                          <linearGradient id={`gradient-${workflow.id}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="hsl(var(--chart-4))" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="hsl(var(--chart-4))" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <Area type="monotone" dataKey="value" stroke="hsl(var(--chart-4))" fill={`url(#gradient-${workflow.id})`} strokeWidth={2} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  {/* Step Breakdown */}
+                  <div className="space-y-2 mb-4">
+                    <p className="text-xs font-medium text-muted-foreground">Step Performance</p>
+                    {workflow.stepBreakdown.map((step, i) => (
+                      <div key={i} className="flex items-center justify-between text-sm">
+                        <span className="text-foreground">{step.step}</span>
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs text-muted-foreground font-mono">{step.avgDuration}</span>
+                          <Badge variant={step.successRate >= 95 ? 'success' : 'warning'} className="text-xs">
+                            {step.successRate}%
+                          </Badge>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Agents */}
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground mb-2">Agents Involved</p>
+                    <div className="flex flex-wrap gap-1">
+                      {workflow.agents.map((agent, i) => (
+                        <Badge key={i} variant="muted" className="text-xs">
+                          <Bot className="w-3 h-3 mr-1" />
+                          {agent}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-3 pt-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
+                    <span>Last: {workflow.lastExecution}</span>
+                    <span>Avg Cost: ${workflow.avgCost.toFixed(4)}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Agent Metrics Tab */}
+        <TabsContent value="agents" className="mt-6 space-y-6">
+          {agentExecutionMetrics.map((agent) => (
+            <div key={agent.id} className="glass-panel">
+              <div className="p-4 border-b border-border">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-chart-2/20 flex items-center justify-center">
+                      <Bot className="w-6 h-6 text-chart-2" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-foreground">{agent.name}</h3>
+                        <Badge variant="muted">{agent.type}</Badge>
+                        <Badge variant="muted" className="font-mono">{agent.model}</Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground font-mono">{agent.id}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <p className="text-2xl font-mono font-semibold text-success">{agent.avgScore}%</p>
+                      <p className="text-xs text-muted-foreground">Avg Score</p>
+                    </div>
+                    <Button variant="outline" size="sm">
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Details
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="grid grid-cols-6 gap-4 mb-6">
+                  <div className="p-3 rounded-lg bg-card text-center">
+                    <p className="text-xl font-mono font-semibold text-foreground">{agent.totalExecutions.toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground">Total Executions</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-card text-center">
+                    <p className="text-xl font-mono font-semibold text-success">{agent.successRate}%</p>
+                    <p className="text-xs text-muted-foreground">Success Rate</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-card text-center">
+                    <p className="text-xl font-mono font-semibold text-foreground">{agent.avgLatency}</p>
+                    <p className="text-xs text-muted-foreground">Avg Latency</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-card text-center">
+                    <p className="text-xl font-mono font-semibold text-foreground">{agent.avgTokens.input}</p>
+                    <p className="text-xs text-muted-foreground">Avg Input Tokens</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-card text-center">
+                    <p className="text-xl font-mono font-semibold text-foreground">{agent.avgTokens.output}</p>
+                    <p className="text-xs text-muted-foreground">Avg Output Tokens</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-card text-center">
+                    <p className="text-xl font-mono font-semibold text-foreground">${agent.avgCost.toFixed(4)}</p>
+                    <p className="text-xs text-muted-foreground">Avg Cost</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-6">
+                  {/* Recent Executions */}
+                  <div>
+                    <h4 className="text-sm font-medium text-foreground mb-3">Recent Executions</h4>
+                    <div className="space-y-2">
+                      {agent.recentExecutions.map((exec, i) => (
+                        <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-card">
+                          <div className="flex items-center gap-2">
+                            {exec.status === 'success' ? (
+                              <CheckCircle className="w-4 h-4 text-success" />
+                            ) : (
+                              <XCircle className="w-4 h-4 text-destructive" />
+                            )}
+                            <span className="text-xs font-mono text-primary">{exec.id}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-xs">
+                            <span className="text-muted-foreground">{exec.timestamp}</span>
+                            <Badge variant={exec.status === 'success' ? 'success' : 'critical'} className="text-xs">
+                              {exec.score}%
+                            </Badge>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Error Breakdown */}
+                  <div>
+                    <h4 className="text-sm font-medium text-foreground mb-3">Error Breakdown</h4>
+                    <div className="space-y-2">
+                      {agent.errorBreakdown.map((error, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-xs text-foreground">{error.type}</span>
+                              <span className="text-xs text-muted-foreground">{error.count}</span>
+                            </div>
+                            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-destructive/60 rounded-full" 
+                                style={{ width: `${error.percentage}%` }}
+                              />
+                            </div>
+                          </div>
+                          <span className="text-xs text-muted-foreground w-8">{error.percentage}%</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Capabilities & Workflows */}
+                  <div>
+                    <h4 className="text-sm font-medium text-foreground mb-3">Capabilities</h4>
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {agent.capabilities.map((cap, i) => (
+                        <Badge key={i} variant="muted" className="text-xs">{cap}</Badge>
+                      ))}
+                    </div>
+                    <h4 className="text-sm font-medium text-foreground mb-2">Used in Workflows</h4>
+                    <div className="space-y-1">
+                      {agent.workflows.map((wf, i) => (
+                        <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <GitBranch className="w-3 h-3" />
+                          {wf}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </TabsContent>
+
         <TabsContent value="trends" className="mt-6 space-y-6">
           {/* Charts */}
           <div className="grid grid-cols-2 gap-6">
@@ -661,49 +1358,6 @@ export function EvaluationSection() {
           </div>
         </TabsContent>
 
-        <TabsContent value="details" className="mt-6 space-y-6">
-          <div className="glass-panel p-5">
-            <h3 className="text-lg font-semibold text-foreground mb-4">Evaluation Run History</h3>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-left p-3 text-xs font-medium text-muted-foreground">Run ID</th>
-                    <th className="text-left p-3 text-xs font-medium text-muted-foreground">Timestamp</th>
-                    <th className="text-left p-3 text-xs font-medium text-muted-foreground">Layers</th>
-                    <th className="text-center p-3 text-xs font-medium text-muted-foreground">Samples</th>
-                    <th className="text-center p-3 text-xs font-medium text-muted-foreground">Duration</th>
-                    <th className="text-center p-3 text-xs font-medium text-muted-foreground">Score</th>
-                    <th className="text-center p-3 text-xs font-medium text-muted-foreground">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { id: 'EVL-2024-1215-001', time: '2024-12-15 14:30', layers: 'All', samples: 5000, duration: '12m 34s', score: 91.2, status: 'completed' },
-                    { id: 'EVL-2024-1215-002', time: '2024-12-15 10:15', layers: 'Model, Agent', samples: 2500, duration: '6m 12s', score: 94.5, status: 'completed' },
-                    { id: 'EVL-2024-1214-001', time: '2024-12-14 16:45', layers: 'E2E', samples: 1000, duration: '8m 45s', score: 85.3, status: 'completed' },
-                    { id: 'EVL-2024-1214-002', time: '2024-12-14 09:00', layers: 'All', samples: 5000, duration: '—', score: 0, status: 'failed' },
-                    { id: 'EVL-2024-1213-001', time: '2024-12-13 11:20', layers: 'Tools, Workflow', samples: 3200, duration: '9m 18s', score: 88.7, status: 'completed' },
-                  ].map((run, i) => (
-                    <tr key={i} className="border-b border-border hover:bg-muted/20">
-                      <td className="p-3 font-mono text-sm text-primary">{run.id}</td>
-                      <td className="p-3 text-sm text-foreground">{run.time}</td>
-                      <td className="p-3 text-sm text-muted-foreground">{run.layers}</td>
-                      <td className="p-3 text-center text-sm font-mono text-foreground">{run.samples.toLocaleString()}</td>
-                      <td className="p-3 text-center text-sm font-mono text-foreground">{run.duration}</td>
-                      <td className="p-3 text-center">
-                        {run.score > 0 && <span className="font-mono text-success">{run.score}%</span>}
-                      </td>
-                      <td className="p-3 text-center">
-                        <Badge variant={run.status === 'completed' ? 'success' : 'critical'}>{run.status}</Badge>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </TabsContent>
       </Tabs>
     </div>
   );
