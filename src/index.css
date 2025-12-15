@@ -6,69 +6,80 @@
 
 @layer base {
   :root {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 96%;
+    /* Light theme using provided color palette */
+    /* Light Grey #F3F6F7 - main background */
+    --background: 195 18% 96%;
+    /* Eerie Black #1A1E1E - text */
+    --foreground: 180 7% 11%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 96%;
+    /* Beau Blue #C6D4E0 - card background */
+    --card: 208 30% 90%;
+    --card-foreground: 180 7% 11%;
 
-    --popover: 222 47% 10%;
-    --popover-foreground: 210 40% 96%;
+    --popover: 208 30% 92%;
+    --popover-foreground: 180 7% 11%;
 
-    --primary: 192 95% 55%;
-    --primary-foreground: 222 47% 6%;
+    /* Cosmic Cobalt #192D8E - primary */
+    --primary: 230 70% 33%;
+    --primary-foreground: 195 18% 96%;
 
-    --secondary: 260 60% 55%;
-    --secondary-foreground: 210 40% 98%;
+    /* Amaranth #9B1C62 - secondary */
+    --secondary: 327 69% 36%;
+    --secondary-foreground: 195 18% 96%;
 
-    --muted: 222 30% 14%;
-    --muted-foreground: 215 20% 55%;
+    /* Slate Grey #617E9B - muted */
+    --muted: 210 24% 85%;
+    --muted-foreground: 210 24% 40%;
 
-    --accent: 192 80% 45%;
-    --accent-foreground: 210 40% 98%;
+    /* Green Pantone #0BB24F - accent */
+    --accent: 144 88% 37%;
+    --accent-foreground: 195 18% 96%;
 
-    --destructive: 0 72% 55%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 195 18% 96%;
 
-    --success: 142 70% 45%;
-    --success-foreground: 210 40% 98%;
+    /* Green Pantone for success */
+    --success: 144 88% 37%;
+    --success-foreground: 195 18% 96%;
 
-    --warning: 38 92% 55%;
-    --warning-foreground: 222 47% 6%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 180 7% 11%;
 
-    --border: 222 30% 18%;
-    --input: 222 30% 14%;
-    --ring: 192 95% 55%;
+    /* Slate Grey for borders */
+    --border: 210 24% 80%;
+    --input: 210 24% 88%;
+    --ring: 230 70% 33%;
 
     --radius: 0.625rem;
 
     /* Custom tokens */
-    --glow-primary: 0 0 30px hsl(192 95% 55% / 0.3);
-    --glow-secondary: 0 0 30px hsl(260 60% 55% / 0.3);
-    --glow-success: 0 0 20px hsl(142 70% 45% / 0.3);
-    --glow-warning: 0 0 20px hsl(38 92% 55% / 0.3);
-    --glow-destructive: 0 0 20px hsl(0 72% 55% / 0.3);
+    --glow-primary: 0 0 30px hsl(230 70% 33% / 0.2);
+    --glow-secondary: 0 0 30px hsl(327 69% 36% / 0.2);
+    --glow-success: 0 0 20px hsl(144 88% 37% / 0.2);
+    --glow-warning: 0 0 20px hsl(38 92% 50% / 0.2);
+    --glow-destructive: 0 0 20px hsl(0 72% 50% / 0.2);
 
-    --gradient-primary: linear-gradient(135deg, hsl(192 95% 55%), hsl(220 90% 60%));
-    --gradient-secondary: linear-gradient(135deg, hsl(260 60% 55%), hsl(280 70% 60%));
-    --gradient-surface: linear-gradient(180deg, hsl(222 47% 10%), hsl(222 47% 6%));
-    --gradient-card: linear-gradient(135deg, hsl(222 47% 10%), hsl(222 47% 8%));
-    --gradient-insights: linear-gradient(135deg, hsl(280 70% 50%), hsl(320 80% 55%));
+    --gradient-primary: linear-gradient(135deg, hsl(230 70% 33%), hsl(230 70% 45%));
+    --gradient-secondary: linear-gradient(135deg, hsl(327 69% 36%), hsl(327 69% 50%));
+    --gradient-surface: linear-gradient(180deg, hsl(195 18% 98%), hsl(195 18% 96%));
+    --gradient-card: linear-gradient(135deg, hsl(208 30% 92%), hsl(208 30% 88%));
+    --gradient-insights: linear-gradient(135deg, hsl(327 69% 40%), hsl(230 70% 40%));
 
-    --sidebar-background: 222 47% 5%;
-    --sidebar-foreground: 210 40% 90%;
-    --sidebar-primary: 192 95% 55%;
-    --sidebar-primary-foreground: 222 47% 6%;
-    --sidebar-accent: 222 30% 12%;
-    --sidebar-accent-foreground: 210 40% 96%;
-    --sidebar-border: 222 30% 15%;
-    --sidebar-ring: 192 95% 55%;
+    /* Sidebar - slightly darker using Beau Blue */
+    --sidebar-background: 208 30% 88%;
+    --sidebar-foreground: 180 7% 11%;
+    --sidebar-primary: 230 70% 33%;
+    --sidebar-primary-foreground: 195 18% 96%;
+    --sidebar-accent: 208 30% 82%;
+    --sidebar-accent-foreground: 180 7% 11%;
+    --sidebar-border: 210 24% 78%;
+    --sidebar-ring: 230 70% 33%;
 
-    --chart-1: 192 95% 55%;
-    --chart-2: 260 60% 55%;
-    --chart-3: 142 70% 45%;
-    --chart-4: 38 92% 55%;
-    --chart-5: 0 72% 55%;
+    --chart-1: 230 70% 33%;
+    --chart-2: 327 69% 36%;
+    --chart-3: 144 88% 37%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 210 24% 49%;
   }
 }
 
