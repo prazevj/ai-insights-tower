@@ -32,9 +32,6 @@ RUN echo 'server { \
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Fix permissions
-RUN chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html
-
 EXPOSE 8040
 
 CMD ["nginx", "-g", "daemon off;"]
