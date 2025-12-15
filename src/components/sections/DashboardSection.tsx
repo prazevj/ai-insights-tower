@@ -5,12 +5,12 @@ import { EvaluationChart, LayerMetricsChart } from '@/components/dashboard/Evalu
 import { InsightsTower } from '@/components/dashboard/InsightsTower';
 
 const agents = [
-  { name: 'IncidentClassifier', type: 'Classification Agent', status: 'healthy' as const, accuracy: 94.2, responseTime: '1.2s', lastActive: '2 min ago', tasksCompleted: 1250 },
-  { name: 'EscalationAgent', type: 'Escalation & Routing', status: 'warning' as const, accuracy: 89.5, responseTime: '0.9s', lastActive: '1 min ago', tasksCompleted: 890 },
-  { name: 'ResolutionAgent', type: 'Auto-Resolution', status: 'healthy' as const, accuracy: 96.8, responseTime: '2.1s', lastActive: '5 min ago', tasksCompleted: 450 },
-  { name: 'NotificationAgent', type: 'Alert & Notify', status: 'healthy' as const, accuracy: 99.2, responseTime: '0.3s', lastActive: '30 sec ago', tasksCompleted: 3200 },
-  { name: 'AnalyticsAgent', type: 'Insights & Reporting', status: 'idle' as const, accuracy: 97.5, responseTime: '3.2s', lastActive: '15 min ago', tasksCompleted: 120 },
-  { name: 'IntegrationAgent', type: 'MCP Connector', status: 'healthy' as const, accuracy: 98.9, responseTime: '0.8s', lastActive: '1 min ago', tasksCompleted: 2100 },
+  { name: 'IncidentClassifier', type: 'Classification Agent', status: 'healthy' as const, accuracy: 87.3, responseTime: '2.4s', lastActive: '2 min ago', tasksCompleted: 156 },
+  { name: 'EscalationAgent', type: 'Escalation & Routing', status: 'warning' as const, accuracy: 82.1, responseTime: '1.8s', lastActive: '1 min ago', tasksCompleted: 89 },
+  { name: 'ResolutionAgent', type: 'Auto-Resolution', status: 'healthy' as const, accuracy: 79.5, responseTime: '4.2s', lastActive: '5 min ago', tasksCompleted: 43 },
+  { name: 'NotificationAgent', type: 'Alert & Notify', status: 'healthy' as const, accuracy: 94.8, responseTime: '0.6s', lastActive: '30 sec ago', tasksCompleted: 312 },
+  { name: 'AnalyticsAgent', type: 'Insights & Reporting', status: 'idle' as const, accuracy: 91.2, responseTime: '5.8s', lastActive: '15 min ago', tasksCompleted: 28 },
+  { name: 'IntegrationAgent', type: 'MCP Connector', status: 'healthy' as const, accuracy: 96.4, responseTime: '1.2s', lastActive: '1 min ago', tasksCompleted: 245 },
 ];
 
 export function DashboardSection() {
@@ -20,44 +20,44 @@ export function DashboardSection() {
       <div className="data-grid">
         <MetricCard 
           title="Active Agents" 
-          value="47" 
+          value="6" 
           subtitle="Running workflows"
-          trend={{ value: 12, direction: 'up' }}
+          trend={{ value: 2, direction: 'up' }}
           icon={<Bot className="w-5 h-5 text-primary" />}
           variant="primary"
         />
         <MetricCard 
           title="Avg Accuracy" 
-          value="94.8%" 
+          value="88.5%" 
           subtitle="Across all agents"
-          trend={{ value: 2.3, direction: 'up' }}
+          trend={{ value: 1.2, direction: 'up' }}
           icon={<Target className="w-5 h-5 text-success" />}
           variant="success"
         />
         <MetricCard 
           title="Incidents Processed" 
-          value="12,450" 
+          value="873" 
           subtitle="Last 24 hours"
-          trend={{ value: 8, direction: 'up' }}
+          trend={{ value: 5, direction: 'up' }}
           icon={<Activity className="w-5 h-5 text-secondary" />}
         />
         <MetricCard 
           title="Avg Response Time" 
-          value="1.4s" 
+          value="2.7s" 
           subtitle="P95 latency"
-          trend={{ value: 5, direction: 'down' }}
+          trend={{ value: 8, direction: 'down' }}
           icon={<Clock className="w-5 h-5 text-warning" />}
         />
         <MetricCard 
           title="Token Usage" 
-          value="2.4M" 
+          value="142K" 
           subtitle="Today's consumption"
-          trend={{ value: 3, direction: 'neutral' }}
+          trend={{ value: 12, direction: 'up' }}
           icon={<Zap className="w-5 h-5 text-primary" />}
         />
         <MetricCard 
           title="Alerts" 
-          value="3" 
+          value="7" 
           subtitle="Requires attention"
           icon={<AlertTriangle className="w-5 h-5 text-warning" />}
           variant="warning"
