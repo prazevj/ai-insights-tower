@@ -17,5 +17,5 @@ RUN npm run build
 # Expose port 8040
 EXPOSE 8040
 
-# Run the preview server on port 8040
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "8040"]
+# Run the preview server
+CMD ["npm", "run", "preview"]
