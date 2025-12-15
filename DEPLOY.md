@@ -9,7 +9,6 @@
    Copy the following files to your VM (or clone the repository):
    - `Dockerfile`
    - `docker-compose.yml`
-   - `nginx.conf`
    - `package.json`
    - `package-lock.json`
    - `src/` directory
@@ -31,8 +30,7 @@
    The application should now be accessible at `http://<VM_IP>:8040`.
 
 ## Troubleshooting
-- If port 8040 is already in use, edit `docker-compose.yml` and change `"8040:80"` to another port (e.g., `"8041:80"`).
-- To view logs:
+- If the container exits or restarts, check logs:
   ```bash
   docker-compose logs -f
   ```
