@@ -28,7 +28,7 @@ const pageConfig: Array<{
   { id: 'observability', label: 'Observability', description: 'Traces, logs, and service health', icon: Eye, badge: 'LIVE' },
   { id: 'insights-tower', label: 'AI InsightsTower', description: 'Meta-agent self-improvement system', icon: Brain, badge: 'META' },
   { id: 'evaluation', label: 'Evaluation Metrics', description: 'Multi-layer performance analysis', icon: BarChart3 },
-  { id: 'prompts', label: 'Prompt Studio', description: 'Manage and test agent prompts', icon: MessageSquare },
+  { id: 'prompts', label: 'Prompt Ops', description: 'Manage and test agent prompts', icon: MessageSquare },
   { id: 'governance', label: 'Agent Governance', description: 'Policies, guardrails, and audit', icon: Shield },
   { id: 'azure', label: 'Azure Integration', description: 'AKS clusters and observability pipeline', icon: Zap, badge: 'NEW' },
   { id: 'multi-cloud', label: 'Multi-Cloud Dashboard', description: 'Unified view across Azure, AWS, GCP', icon: Cloud, badge: 'NEW' },
