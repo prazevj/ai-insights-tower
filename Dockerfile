@@ -1,5 +1,4 @@
-# Stage 1: Build the application
-FROM node:20-alpine as builder
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -15,23 +14,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Stage 2: Serve with Nginx
-FROM nginx:alpine
-
-# Configure Nginx for SPA and Port 8040 internally
-RUN echo 'server { \
-    listen 8040; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-    try_files $uri $uri/ /index.html; \
-    } \
-    }' > /etc/nginx/conf.d/default.conf
-
-# Copy built assets from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
-
+# Expose port 8040
 EXPOSE 8040
 
-CMD ["nginx", "-g", "daemon off;"]
+# Run the preview server on port 8040
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "8040"]
