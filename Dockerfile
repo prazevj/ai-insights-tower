@@ -14,8 +14,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Expose port 8040
-EXPOSE 8040
+# Expose port 8006
+EXPOSE 8006
 
 # Run the preview server
 CMD ["npm", "run", "preview"]
