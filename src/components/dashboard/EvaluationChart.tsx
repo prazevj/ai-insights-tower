@@ -1,21 +1,21 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 const performanceData = [
-  { time: '00:00', model: 95, agent: 88, tool: 92, workflow: 85, e2e: 82 },
-  { time: '04:00', model: 93, agent: 90, tool: 89, workflow: 87, e2e: 84 },
-  { time: '08:00', model: 97, agent: 92, tool: 94, workflow: 89, e2e: 88 },
-  { time: '12:00', model: 94, agent: 85, tool: 91, workflow: 83, e2e: 80 },
-  { time: '16:00', model: 96, agent: 91, tool: 93, workflow: 88, e2e: 86 },
-  { time: '20:00', model: 98, agent: 94, tool: 95, workflow: 91, e2e: 89 },
-  { time: '24:00', model: 97, agent: 93, tool: 94, workflow: 90, e2e: 87 },
+  { time: '00:00', model: 91, agent: 78, tool: 84, workflow: 72, e2e: 68 },
+  { time: '04:00', model: 89, agent: 81, tool: 82, workflow: 74, e2e: 71 },
+  { time: '08:00', model: 93, agent: 84, tool: 87, workflow: 79, e2e: 75 },
+  { time: '12:00', model: 88, agent: 76, tool: 83, workflow: 71, e2e: 67 },
+  { time: '16:00', model: 92, agent: 82, tool: 86, workflow: 77, e2e: 73 },
+  { time: '20:00', model: 94, agent: 85, tool: 88, workflow: 81, e2e: 76 },
+  { time: '24:00', model: 91, agent: 83, tool: 85, workflow: 78, e2e: 74 },
 ];
 
 const layerMetrics = [
-  { layer: 'Model', score: 96, baseline: 90 },
-  { layer: 'Agent', score: 91, baseline: 85 },
-  { layer: 'Tools', score: 93, baseline: 88 },
-  { layer: 'Workflow', score: 88, baseline: 82 },
-  { layer: 'E2E', score: 85, baseline: 78 },
+  { layer: 'Model', score: 91, baseline: 85 },
+  { layer: 'Agent', score: 82, baseline: 78 },
+  { layer: 'Tools', score: 86, baseline: 81 },
+  { layer: 'Workflow', score: 76, baseline: 72 },
+  { layer: 'E2E', score: 72, baseline: 68 },
 ];
 
 interface CustomTooltipProps {
